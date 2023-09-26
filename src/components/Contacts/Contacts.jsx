@@ -8,7 +8,6 @@ import { getFilter } from 'redux/filterSlice';
 export const Contacts = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
-  // const isLoading = useSelector(state => state.contacts.isLoading);
   const error = useSelector(state => state.contacts.error);
   const filterSelector = useSelector(getFilter);
 

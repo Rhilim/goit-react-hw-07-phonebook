@@ -7,8 +7,6 @@ export const rootReducer = combineReducers({
   contacts: contactReducer,
 });
 
-
 export const store = configureStore({
   reducer: rootReducer,
-  });
-
+});

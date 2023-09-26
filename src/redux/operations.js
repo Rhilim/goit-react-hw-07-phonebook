@@ -3,7 +3,6 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'https://6512085eb8c6ce52b39541d9.mockapi.io';
 
-// Операція для отримання контактів
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, thunkAPI) => {
@@ -16,7 +15,6 @@ export const fetchContacts = createAsyncThunk(
   }
 );
 
-// Операція для додавання контакту
 export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (_, thunkAPI) => {
@@ -29,7 +27,6 @@ export const addContact = createAsyncThunk(
   }
 );
 
-// Операція для видалення контакту за id
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (contactId, thunkAPI) => {
@@ -42,7 +39,6 @@ export const deleteContact = createAsyncThunk(
   }
 );
 
-// Операція для видалення всіх контактів
 export const deleteAllContacts = createAsyncThunk(
   'contacts/deleteAllContacts',
   async (_, thunkAPI) => {
