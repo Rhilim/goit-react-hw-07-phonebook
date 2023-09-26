@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import {
   StyledBtnReset,
   StyledButton,
@@ -14,18 +14,26 @@ import { AiOutlineDelete, AiOutlinePlusCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact, deleteAllContacts } from 'redux/operations';
 import toast, { Toaster } from 'react-hot-toast';
-import { getContacts } from 'redux/contactSlice';
+import { deleteAllContactsUI, getContacts } from 'redux/contactSlice';
 
 export const PhoneBook = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
 
   const handleReset = () => {
-    dispatch(deleteAllContacts());
+    dispatch(deleteAllContactsUI());
   };
 
+  // const handleReset = async () => {
+  //   try {
+  //     await dispatch(deleteAllContacts());
+  //   } catch (error) {
+  //     console.error('Error deleting all contacts:', error);
+  //   }
+  // };
+
   const handleAddContact = newName => {
-    const findContact = contacts.items.find(
+    const findContact = contacts.find(
       item => item.name.toLowerCase() === newName.name.toLowerCase()
     );
     if (findContact) {
@@ -34,7 +42,7 @@ export const PhoneBook = () => {
         position: 'top-center',
       });
     } else {
-      dispatch(addContact({...newName, id: nanoid()}));
+      dispatch(addContact({...newName}));
     }
   };
 
