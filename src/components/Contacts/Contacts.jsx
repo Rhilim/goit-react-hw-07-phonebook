@@ -12,39 +12,48 @@ export const Contacts = () => {
   const error = useSelector(state => state.contacts.error);
   const filterSelector = useSelector(getFilter);
 
+  const handleDelete = async contactId => {
+    try {
+      deleteContact(contactId);
+      dispatch(deleteContact(contactId));
+    } catch (error) {
+      console.error('Error deleting contact:', error);
+    }
+  };
+
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filterSelector.toLowerCase())
   );
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await dispatch(fetchContacts());
+        dispatch(fetchContacts());
       } catch (error) {
         console.error('Error fetching contacts:', error);
       }
     };
-      fetchData();
-  }, [dispatch]);
+    fetchData();
+  }, []);
 
   return (
     <>
-    {isLoading ? (
-      <div>Loading...</div>
-    ) : error ? (
-      <div>Error: {error}</div>
-    ) : (
-      <StyledList>
-        {filteredContacts.map((el) => (
-          <StyledListItem key={el.id}>
-            {el.name}: {el.phone}
-            <StyledDeleteBtn onClick={() => dispatch(deleteContact(el.id))}>
-              delete
-            </StyledDeleteBtn>
-          </StyledListItem>
-        ))}
-      </StyledList>
-    )}
-  </>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>Error: {error}</div>
+      ) : (
+        <StyledList>
+          {filteredContacts.map(el => (
+            <StyledListItem key={el.id}>
+              {el.name}: {el.phone}
+              <StyledDeleteBtn onClick={() => dispatch(handleDelete(el.id))}>
+                delete
+              </StyledDeleteBtn>
+            </StyledListItem>
+          ))}
+        </StyledList>
+      )}
+    </>
   );
 };
