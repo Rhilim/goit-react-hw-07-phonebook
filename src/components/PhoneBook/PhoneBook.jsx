@@ -1,6 +1,5 @@
 import React from 'react';
 import { Formik } from 'formik';
-// import { nanoid } from 'nanoid';
 import {
   StyledBtnReset,
   StyledButton,
@@ -12,7 +11,7 @@ import {
 } from 'components/PhoneBook/PhoneBook.styled';
 import { AiOutlineDelete, AiOutlinePlusCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, deleteAllContacts } from 'redux/operations';
+import { addContact } from 'redux/operations';
 import toast, { Toaster } from 'react-hot-toast';
 import { deleteAllContactsUI, getContacts } from 'redux/contactSlice';
 
@@ -42,7 +41,7 @@ export const PhoneBook = () => {
         position: 'top-center',
       });
     } else {
-      dispatch(addContact({...newName}));
+      dispatch(addContact({ ...newName }));
     }
   };
 
@@ -89,7 +88,7 @@ export const PhoneBook = () => {
                 <AiOutlinePlusCircle size={25} />
                 Add contact
               </StyledButton>
-              <StyledBtnReset type="button" onClick={handleReset} >      
+              <StyledBtnReset type="button" onClick={handleReset}>
                 <AiOutlineDelete size={25} />
                 Delete all contacts
               </StyledBtnReset>
@@ -101,5 +100,3 @@ export const PhoneBook = () => {
     </>
   );
 };
-
-
