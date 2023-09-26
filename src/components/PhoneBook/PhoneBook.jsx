@@ -12,8 +12,9 @@ import {
 } from 'components/PhoneBook/PhoneBook.styled';
 import { AiOutlineDelete, AiOutlinePlusCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, deleteAllContacts, getContacts } from 'redux/contactSlice';
+import { addContact, deleteAllContacts } from 'redux/operations';
 import toast, { Toaster } from 'react-hot-toast';
+import { getContacts } from 'redux/contactSlice';
 
 export const PhoneBook = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ export const PhoneBook = () => {
   };
 
   const handleAddContact = newName => {
-    const findContact = contacts.find(
+    const findContact = contacts.items.find(
       item => item.name.toLowerCase() === newName.name.toLowerCase()
     );
     if (findContact) {
@@ -33,7 +34,7 @@ export const PhoneBook = () => {
         position: 'top-center',
       });
     } else {
-      dispatch(addContact({ ...newName, id: nanoid() }));
+      dispatch(addContact({newName}));
     }
   };
 
@@ -80,7 +81,7 @@ export const PhoneBook = () => {
                 <AiOutlinePlusCircle size={25} />
                 Add contact
               </StyledButton>
-              <StyledBtnReset type="button" onClick={handleReset}>
+              <StyledBtnReset type="button" onClick={handleReset} >      
                 <AiOutlineDelete size={25} />
                 Delete all contacts
               </StyledBtnReset>
@@ -92,3 +93,5 @@ export const PhoneBook = () => {
     </>
   );
 };
+
+
