@@ -34,7 +34,7 @@ export const PhoneBook = () => {
         position: 'top-center',
       });
     } else {
-      dispatch(addContact({newName}));
+      dispatch(addContact({...newName, id: nanoid()}));
     }
   };
 

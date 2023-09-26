@@ -1,21 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'redux/contactSlice';
 import { deleteContact, fetchContacts } from 'redux/operations';
-// import { getFilter } from 'redux/filterSlice';
 import { StyledDeleteBtn, StyledList, StyledListItem } from './Contacts.styled';
 import { useEffect } from 'react';
+import { getFilter } from 'redux/filterSlice';
 
 export const Contacts = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
   const isLoading = useSelector(state => state.contacts.isLoading);
   const error = useSelector(state => state.contacts.error);
-  // const filterSelector = useSelector(getFilter);
+  const filterSelector = useSelector(getFilter);
 
-  // const filteredContacts = contacts.items.filter(item =>
-  //   item.name.toLowerCase().includes(filterSelector.toLowerCase())
-  // );
-
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filterSelector.toLowerCase())
+  );
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,10 +27,6 @@ export const Contacts = () => {
       fetchData();
   }, [dispatch]);
 
-  const handleDelete = contactId => {
-    dispatch(deleteContact(contactId));
-  };
-
   return (
     <>
     {isLoading ? (
@@ -39,10 +35,10 @@ export const Contacts = () => {
       <div>Error: {error}</div>
     ) : (
       <StyledList>
-        {contacts.map((el) => (
+        {filteredContacts.map((el) => (
           <StyledListItem key={el.id}>
             {el.name}: {el.phone}
-            <StyledDeleteBtn onClick={() => handleDelete()}>
+            <StyledDeleteBtn onClick={() => dispatch(deleteContact(el.id))}>
               delete
             </StyledDeleteBtn>
           </StyledListItem>
