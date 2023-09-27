@@ -23,14 +23,6 @@ export const PhoneBook = () => {
     dispatch(deleteAllContactsUI());
   };
 
-  // const handleReset = async () => {
-  //   try {
-  //     await dispatch(deleteAllContacts());
-  //   } catch (error) {
-  //     console.error('Error deleting all contacts:', error);
-  //   }
-  // };
-
   const handleAddContact = newName => {
     const findContact = contacts.find(
       item => item.name.toLowerCase() === newName.name.toLowerCase()
@@ -50,7 +42,7 @@ export const PhoneBook = () => {
       <Formik
         initialValues={{
           name: '',
-          number: '',
+          phone: '',
         }}
         onSubmit={(values, actions) => {
           handleAddContact(values);
@@ -76,7 +68,7 @@ export const PhoneBook = () => {
             <StyledLabel> Number </StyledLabel>
             <StyledField
               type="tel"
-              name="number"
+              name="phone"
               placeholder="123456789"
               pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
